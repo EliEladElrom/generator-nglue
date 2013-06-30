@@ -1,15 +1,11 @@
 'use strict';
-var util = require('util');
 var path = require('path');
+var util = require('util');
 var yeoman = require('yeoman-generator');
 
 
-var NglueGenerator = module.exports = function NglueGenerator(args, options, config) {
+var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
-
-  this.hookFor('nglue:module', {
-      args: args
-  });
 
   this.on('end', function () {
     this.installDependencies({ skipInstall: options['skip-install'] });
@@ -18,33 +14,34 @@ var NglueGenerator = module.exports = function NglueGenerator(args, options, con
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
-util.inherits(NglueGenerator, yeoman.generators.Base);
+util.inherits(Generator, yeoman.generators.Base);
 
-NglueGenerator.prototype.askFor = function askFor() {
+
+Generator.prototype.askForName = function askForName() {
   var cb = this.async();
 
   // have Yeoman greet the user.
   console.log(this.yeoman);
 
   var prompts = [{
-    type: 'moduleName',
+    type: 'input',
     name: 'projectName',
-    message: 'What\'s your project\'s name?',
+    message: 'What\'s your project\'s name?'
   }];
 
   this.prompt(prompts, function (props) {
-    this.moduleName = props.moduleName;
     this.projectName = props.projectName;
 
     cb();
   }.bind(this));
 };
 
-NglueGenerator.prototype.app = function app() {
+
+Generator.prototype.app = function app() {
   this.mkdir('code_base');
   this.mkdir('code_base/apps');
-  this.mkdir('code_base/apps/mobile');
-  this.mkdir('code_base/apps/web');
+//  this.mkdir('code_base/apps/mobile');
+//  this.mkdir('code_base/apps/web');
   this.mkdir('code_base/assets');
   this.mkdir('code_base/assets/bower_components');
   this.mkdir('code_base/assets/components');
@@ -63,7 +60,18 @@ NglueGenerator.prototype.app = function app() {
   this.template('_config.json', 'code_base/assets/config.json');
 };
 
-NglueGenerator.prototype.projectfiles = function projectfiles() {
+Generator.prototype.projectfiles = function projectfiles() {
   this.copy('editorconfig', '.editorconfig');
   this.copy('jshintrc', '.jshintrc');
 };
+
+
+
+
+//Generator.prototype.setupEnv = function setupEnv() {
+//  // Copies the contents of the generator `templates`
+//  // directory into your users new application path
+//  this.sourceRoot(path.join(__dirname, '../templates/common'));
+//  this.directory('root', '.', true);
+//  this.copy('gitignore', '.gitignore');
+//};
