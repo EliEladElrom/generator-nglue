@@ -1,0 +1,19 @@
+<!doctype html>
+<html ng-app="<%= _.slugify(name) %>Module">
+<head>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <title><%= _.slugify(name) %>Module</title>
+</head>
+
+<!-- libs -->
+<!-- implment -->
+
+<!-- components directives and controllers -->
+<script src="app/app.js"></script>
+<script src="<%= _.slugify(name) %>-controller.js"></script>
+
+<!-- components partial -->
+<div ng-include src="'<%= _.slugify(name) %>-partial.html'"></div>
+
+</body>
+</html>
