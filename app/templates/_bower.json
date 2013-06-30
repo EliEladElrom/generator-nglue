@@ -1,0 +1,9 @@
+{
+    "name": "<%= _.slugify(projectName) %>",
+    "version": "0.0.1",
+    "devDependencies": {
+        "angular": "~1.0.7",
+        "angular-mocks": "~1.0.7"
+    },
+    "dependencies": {}
+}

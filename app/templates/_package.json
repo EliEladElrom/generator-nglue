@@ -1,0 +1,17 @@
+{
+    "name": "<%= _.slugify(projectName) %>",
+    "version": "0.0.0",
+    "description": "<%= _.slugify(projectName) %>",
+    "dependencies": {
+    },
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-copy": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-replace": "~0.4.4",
+        "grunt-contrib-less": "~0.6.1",
+        "grunt-notify": "~0.2.4",
+        "grunt-contrib-uglify": "~0.2.2"
+    },
+    "engine": "node >= 0.6.6"
+}
