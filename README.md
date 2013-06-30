@@ -18,5 +18,23 @@ Create a module and add templates;
 
 > yo nglue:module [module name]
 
+## Concatenating minifies global js files
+
+Grunt command to combines and minifies all the global js files for usage by modules and apps.  Here you can add all the js components you install using bower or added manually.  By default the generator installs; `angular` and `angular-mocks`.
+The magic happens in the `config.json` file, you can add all the files you need to be usage by your project globally.  Globally, means that every single module used would need these libraries.
+
+Here's the default initial file you are given when you initialize the generator;
+
+<pre>
+{
+  "version": "0.0.0",
+  "name": "your-project-name-global-components",
+  "js": {
+    "angular": "angular/angular.js",
+    "angular-mocks": "angular-mocks/angular-mocks.js"
+  }
+}
+</pre>
+
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)

@@ -19,5 +19,5 @@ ModuleGenerator.prototype.files = function files() {
   this.template('app.js', this.moduleDirectory + 'app/app.js');
   this.template('_partial.html', this.moduleDirectory + this.name + '_partial.html');
   this.template('_controller.js', this.moduleDirectory + this.name + '_controller.js');
-  this.template('_index.html', this.moduleDirectory + this.name + 'index.html');
+  this.template('_index.html', this.moduleDirectory + 'index.html');
 };

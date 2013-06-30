@@ -1,0 +1,8 @@
+{
+  "version": "0.0.0",
+  "name": "<%= _.slugify(projectName) %>-global-components",
+  "js": {
+    "angular": "angular/angular.js",
+    "angular-mocks": "angular-mocks/angular-mocks.js"
+  }
+}

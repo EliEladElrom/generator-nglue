@@ -60,6 +60,7 @@ NglueGenerator.prototype.app = function app() {
 
   this.template('_package.json', 'package.json');
   this.template('_bower.json', 'bower.json');
+  this.template('_config.json', 'code_base/assets/config.json');
 };
 
 NglueGenerator.prototype.projectfiles = function projectfiles() {

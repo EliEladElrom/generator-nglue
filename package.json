@@ -1,21 +1,21 @@
 {
   "name": "generator-nglue",
-  "version": "0.0.0",
-  "description": "A generator for Yeoman",
+  "version": "0.0.1-alpha",
+  "description": "Yeoman generator for Angular gluing re-usable components",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator, angular, angularjs, angular component, angular re-usable components, angular modules"
   ],
-  "homepage": "https://github.com/EladElrom/generator-nglue",
-  "bugs": "https://github.com/EladElrom/generator-nglue/issues",
+  "homepage": "https://github.com/eladelrom/generator-nglue",
+  "bugs": "https://github.com/eladelrom/generator-nglue/issues",
   "author": {
     "name": "Elad Elrom",
     "email": "elad.ny@gmail.com",
-    "url": "https://github.com/EladElrom"
+    "url": "https://github.com/eladelrom"
   },
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/EladElrom/generator-nglue.git"
+    "url": "git://github.com/eladelrom/generator-nglue.git"
   },
   "scripts": {
     "test": "mocha"
