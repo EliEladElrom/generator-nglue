@@ -7,9 +7,11 @@ var yeoman = require('yeoman-generator');
 var NglueGenerator = module.exports = function NglueGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
-  this.hookFor('nglue:module', {
-      args: args
-  });
+  if (this.hasOwnProperty('name')) {
+    this.hookFor('nglue:module', {
+        args: args
+    });
+  }
 
   this.on('end', function () {
     this.installDependencies({ skipInstall: options['skip-install'] });
