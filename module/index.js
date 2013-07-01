@@ -2,8 +2,10 @@
 var util = require('util');
 var yeoman = require('yeoman-generator');
 
+
 var ModuleGenerator = module.exports = function ModuleGenerator(args, options, config) {
   yeoman.generators.NamedBase.apply(this, arguments);
+
   console.log('Creating module  ' + this.name + ' at \'code_base/modules/\'');
   this.moduleDirectory = 'code_base/modules/' + this.name + '/';
 };
