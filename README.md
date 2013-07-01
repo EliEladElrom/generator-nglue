@@ -7,6 +7,7 @@ An `app` can be anything; a page on a website, a mobile app or page, component t
 To get started, run grunt and bower commands:
 
 ## Getting started
+- Create your project and cd: `mkdir myproject && cd $_`
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator: `npm install -g generator-nglue`

@@ -33,7 +33,11 @@ NglueGenerator.prototype.askFor = function askFor() {
   }];
 
   this.prompt(prompts, function (props) {
-    this.moduleName = props.moduleName;
+
+    if (props.hasOwnProperty('moduleName')) {
+      this.moduleName = props.moduleName;
+    }
+
     this.projectName = props.projectName;
 
     cb();
@@ -41,6 +45,7 @@ NglueGenerator.prototype.askFor = function askFor() {
 };
 
 NglueGenerator.prototype.app = function app() {
+  console.log('1');
   this.mkdir('code_base');
   this.mkdir('code_base/apps');
   this.mkdir('code_base/apps/mobile');
