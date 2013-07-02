@@ -66,6 +66,8 @@ Here's an example of an app `nglue.config` file;
   "version": "0.0.1",
   "name": "detail-page-app",
   "dependencies": {
+  },
+  "nglue-dependencies": {
     "map": "map",
     "dropdown": "dropdown",
     "infinite-scroll": "infinite-scroll",

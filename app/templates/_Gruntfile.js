@@ -72,6 +72,18 @@ module.exports = function (grunt) {
     }
   };
 
+  var removeDuplicationAndUpdateURL = function (array, array_keys) {
+    var latest = [];
+    array.reduce(function (a, b) {
+      if (a.indexOf(b) < 0) {
+        a.push(b);
+        latest.push(findModuleNameBasedOnComponentURL(b, array_keys) + '/' + b);
+      }
+      return a;
+    }, []);
+    return latest;
+  }
+
   /**
    * Define apps modules for app task
    */
@@ -81,16 +93,18 @@ module.exports = function (grunt) {
 
   if (src !== '') {
     var moduleConfig = require('./code_base/apps/' + src + '/nglue.json');
-    moduleComponentFiles = convertKeyToArray(moduleConfig, 'dependencies', undefined);
+    moduleComponentFiles = convertKeyToArray(moduleConfig, 'nglue-dependencies', undefined);
     moduleLessFiles = convertKeyToArray(moduleConfig, 'less', undefined);
 
-    grunt.log.writeln('\nFound the following dependencies: ' + JSON.stringify(moduleComponentFiles) + '\n');
+    grunt.log.writeln('\nGrunt the following dependencies: ' + JSON.stringify(moduleComponentFiles) + '\n');
+    grunt.log.writeln('\nGrunt the following less files: ' + JSON.stringify(moduleLessFiles) + '\n');
 
     var len = moduleComponentFiles.length,
       i,
       moduleDepn,
       moduleConfigUrl,
-      allModuleComponentFiles_keys = [];
+      allModuleComponentFiles_keys = [],
+      allModuleLessFiles_keys = [];
 
     for (i = 0; i < len; ++i) {
       moduleConfigUrl = './code_base/modules/' + moduleComponentFiles[i] + '/nglue.json';
@@ -98,23 +112,18 @@ module.exports = function (grunt) {
       moduleDepn = require(moduleConfigUrl);
 
       convertKeyToKeyValuesArray(moduleDepn, 'dependencies', moduleComponentFiles[i], allModuleComponentFiles_keys);
+      convertKeyToKeyValuesArray(moduleDepn, 'less', moduleComponentFiles[i], allModuleLessFiles_keys);
+
       convertKeyToArray(moduleDepn, 'dependencies', allModuleComponentFiles);
+      convertKeyToArray(moduleDepn, 'less', moduleLessFiles);
     }
 
-    var latest = [];
-    allModuleComponentFiles = allModuleComponentFiles.reduce(function (a, b) {
-      if (a.indexOf(b) < 0) {
-        a.push(b);
-        latest.push(findModuleNameBasedOnComponentURL(b, allModuleComponentFiles_keys) + '/' + b);
-      }
-      return a;
-    }, []);
-    allModuleComponentFiles = latest;
+    moduleLessFiles = removeDuplicationAndUpdateURL(moduleLessFiles, allModuleLessFiles_keys);
+    allModuleComponentFiles = removeDuplicationAndUpdateURL(allModuleComponentFiles, allModuleComponentFiles_keys);
 
-    // TODO: EE add validation to ensure component files are the same files
-    // for each module
-
-    grunt.log.writeln('\n' + JSON.stringify(allModuleComponentFiles));
+    // TODO: EE add validation to ensure component files are the same files for each module
+    grunt.log.writeln('\nApp dependencies: ' + JSON.stringify(allModuleComponentFiles));
+    grunt.log.writeln('\nApp less:' + JSON.stringify(moduleLessFiles));
 
     grunt.option('appComponentName', moduleConfig.name);
     grunt.option('appComponentNameVersion', moduleConfig.version);
@@ -136,8 +145,7 @@ module.exports = function (grunt) {
     return 'code_base/modules/' + p;
   });
 
-  // for debugging
-  // grunt.log.write('reading information from \'code_base/assets/nglue.json\'');
+  grunt.log.write('\n Loading \'code_base/assets/nglue.json\'\n');
 
   grunt.initConfig({
 
