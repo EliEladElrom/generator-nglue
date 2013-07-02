@@ -19,9 +19,9 @@ module.exports = function (grunt) {
     globalLessFiles = [],
     key;
 
-  for (key in globalConfig.js) {
-    if (globalConfig.js.hasOwnProperty(key)) {
-      globaljsFiles.push(globalConfig.js[key]);
+  for (key in globalConfig.dependencies) {
+    if (globalConfig.dependencies.hasOwnProperty(key)) {
+      globaljsFiles.push(globalConfig.dependencies[key]);
     }
   }
 

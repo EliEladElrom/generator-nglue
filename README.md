@@ -37,7 +37,7 @@ Here's the default initial file you are given when you initialize the generator;
 {
   "version": "0.0.0",
   "name": "your-project-name-global-components",
-  "js": {
+  "dependencies": {
     "angular": "bower_components/angular/angular.js",
     "angular-mocks": "bower_components/angular-mocks/angular-mocks.js"
   },
