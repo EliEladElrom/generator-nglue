@@ -24,6 +24,8 @@ Create a module and add templates;
 Grunt command to combines and minifies all the global js files for usage by modules and apps.  Here you can add all the js components you install using bower or added manually.  By default the generator installs; `angular` and `angular-mocks`.
 The magic happens in the `config.json` file, you can add all the files you need to be usage by your project globally.  Globally, means that every single module used would need these libraries.
 
+In addition to global js files you can also add your global less files and have them compile into one css file.  By default we add `base.less` file, but feel free to add other files as needed, just ensure you add them to this config file to build.
+
 Here's the default initial file you are given when you initialize the generator;
 
 <pre>
@@ -31,10 +33,22 @@ Here's the default initial file you are given when you initialize the generator;
   "version": "0.0.0",
   "name": "your-project-name-global-components",
   "js": {
-    "angular": "angular/angular.js",
-    "angular-mocks": "angular-mocks/angular-mocks.js"
+    "angular": "bower_components/angular/angular.js",
+    "angular-mocks": "bower_components/angular-mocks/angular-mocks.js"
+  },
+  "less": {
+    "base" : "../style/base.less"
   }
 }
+</pre>
+
+Once you run `grunt` the compiled js and css files will be published to `code_base/dist/`.  It uses the `config.js > name` and `version` to generate the names as follow;
+
+<pre>
+style/wts-codebase-global-components-0.0.0.css
+style/wts-codebase-global-components-latest.css
+js/wts-codebase-global-components-0.0.0.min.js
+js/wts-codebase-global-components-latest.min.js
 </pre>
 
 ## License

@@ -2,7 +2,10 @@
   "version": "0.0.0",
   "name": "<%= _.slugify(projectName) %>-global-components",
   "js": {
-    "angular": "angular/angular.js",
-    "angular-mocks": "angular-mocks/angular-mocks.js"
+    "angular": "bower_components/angular/angular.js",
+    "angular-mocks": "bower_components/angular-mocks/angular-mocks.js"
+  },
+  "less": {
+    "base" : "../style/base.less"
   }
 }

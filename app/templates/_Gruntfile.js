@@ -14,19 +14,98 @@ module.exports = function (grunt) {
    * Build -- global
    */
 
-  var globalConfig = require('code_base/assets/config.json')
-     ,property = globalConfig.js;
+  var globalConfig = require('./code_base/assets/config.json'),
+    globaljsFiles = [],
+    globalLessFiles = [],
+    key;
+
+  for (key in globalConfig.js) {
+    if (globalConfig.js.hasOwnProperty(key)) {
+      globaljsFiles.push(globalConfig.js[key]);
+    }
+  }
+
+  for (key in globalConfig.less) {
+    if (globalConfig.less.hasOwnProperty(key)) {
+      globalLessFiles.push(globalConfig.less[key]);
+    }
+  }
+
+  globaljsFiles = globaljsFiles.map(function (p) {
+    return 'code_base/assets/' + p;
+  });
+
+  globalLessFiles = globalLessFiles.map(function (p) {
+    return 'code_base/assets/style/' + p;
+  });
+
+  grunt.log.write('reading information from \'code_base/assets/config.json\'');
 
   grunt.initConfig({
 
-      /**
-       * We read in our `package.json` file so we can access the package name and
-       * version.
-       */
-      pkg: grunt.file.readJSON('package.json')
+    /**
+     * We read in our `package.json` file so we can access the package name and
+     * version.
+     */
+    pkg: grunt.file.readJSON('package.json'),
+    glblpkg: grunt.file.readJSON('./code_base/assets/config.json'),
+
+    clean: [
+      'code_base/dist/'
+    ],
+
+    uglify: {
+      globaljsFiles: {
+        options: {
+          compress: {
+            unsafe: false
+          }
+        },
+        files: {
+          'code_base/dist/js/<%= glblpkg.name %>-<%= glblpkg.version %>.min.js': globaljsFiles,
+          'code_base/dist/js/<%= glblpkg.name %>-latest.min.js': globaljsFiles
+        }
+      }
+    },
+
+    less: {
+      globalLessFiles: {
+        options: {
+          compress: {
+            unsafe: false
+          }
+        },
+        files: {
+          'code_base/dist/style/<%= glblpkg.name %>-latest.css': globalLessFiles,
+          'code_base/dist/style/<%= glblpkg.name %>-<%= glblpkg.version %>.css': globalLessFiles
+        }
+      }
+    },
+
+    /**
+     * copy files to dist folder
+     */
+    copy: {
+      assets: {
+        files: [
+          {
+            src: [ 'code_base/apps/web/**' ],
+            dest: 'web/',
+            cwd: 'code_base/dist/apps/',
+            expand: true
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: [ 'code_base/assets/fonts/*'],
+            dest: 'code_base/dist/fonts/',
+            filter: 'isFile'
+          }
+        ]
+      }
+    }
 
   });
 
-  // tasks
-  // grunt.registerTask('default', []);
+  grunt.registerTask('default', ['clean', 'copy', 'uglify', 'less']);
 };

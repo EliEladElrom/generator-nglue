@@ -3,7 +3,6 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 
-
 var NglueGenerator = module.exports = function NglueGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
@@ -47,7 +46,6 @@ NglueGenerator.prototype.askFor = function askFor() {
 };
 
 NglueGenerator.prototype.app = function app() {
-  console.log('1');
   this.mkdir('code_base');
   this.mkdir('code_base/apps');
   this.mkdir('code_base/apps/mobile');
@@ -55,7 +53,7 @@ NglueGenerator.prototype.app = function app() {
   this.mkdir('code_base/assets');
   this.mkdir('code_base/assets/bower_components');
   this.mkdir('code_base/assets/components');
-  this.mkdir('code_base/assets/css');
+  this.mkdir('code_base/assets/style');
   this.mkdir('code_base/assets/fonts');
   this.mkdir('code_base/assets/images');
   this.mkdir('code_base/modules');
@@ -68,6 +66,9 @@ NglueGenerator.prototype.app = function app() {
   this.template('_package.json', 'package.json');
   this.template('_bower.json', 'bower.json');
   this.template('_config.json', 'code_base/assets/config.json');
+  this.copy('_Gruntfile.js', 'Gruntfile.js');
+  this.copy('_gitignore', '.gitignore');
+  this.template('_base.less', 'code_base/assets/style/base.less');
 };
 
 NglueGenerator.prototype.projectfiles = function projectfiles() {
