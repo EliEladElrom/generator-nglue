@@ -24,7 +24,7 @@ module.exports = function (grunt) {
     globalLessFiles,
     moduleComponentFiles,
     allModuleComponentFiles = [],
-    moduleLessFiles;
+    moduleLessFiles = [];
 
   var convertKeyToArray = function (object, keyName, array) {
     var key,
@@ -145,6 +145,10 @@ module.exports = function (grunt) {
     return 'code_base/modules/' + p;
   });
 
+  moduleLessFiles = moduleLessFiles.map(function (p) {
+    return 'code_base/modules/' + p;
+  });
+
   grunt.log.write('\n Loading \'code_base/assets/nglue.json\'\n');
 
   grunt.initConfig({
@@ -184,8 +188,7 @@ module.exports = function (grunt) {
         },
         files: {
           'code_base/dist/js/<%= appComponentName %>-<%= appComponentNameVersion %>.min.js': allModuleComponentFiles,
-          'code_base/dist/js/<%= appComponentName %>-latest.min.js': allModuleComponentFiles,
-          'code_base/apps/<%= optionSrc %>/<%= appComponentName %>-latest.min.js': allModuleComponentFiles
+          'code_base/dist/js/<%= appComponentName %>-latest.min.js': allModuleComponentFiles
         }
       }
     },
@@ -200,6 +203,17 @@ module.exports = function (grunt) {
         files: {
           'code_base/dist/style/<%= glblpkg.name %>-latest.css': globalLessFiles,
           'code_base/dist/style/<%= glblpkg.name %>-<%= glblpkg.version %>.css': globalLessFiles
+        }
+      },
+      moduleLessFiles: {
+        options: {
+          compress: {
+            unsafe: false
+          }
+        },
+        files: {
+          'code_base/dist/style/<%= appComponentName %>-<%= appComponentNameVersion %>.min.js': moduleLessFiles,
+          'code_base/dist/style/<%= appComponentName %>-latest.css': moduleLessFiles
         }
       }
     },
@@ -229,6 +243,6 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean', 'copy', 'uglify:globalComponentFiles', 'less']);
-  grunt.registerTask('app', ['uglify:allModuleComponentFiles']);
+  grunt.registerTask('default', ['clean', 'copy', 'uglify:globalComponentFiles', 'less:globalLessFiles']);
+  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles']);
 };

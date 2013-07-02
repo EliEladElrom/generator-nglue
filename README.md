@@ -83,7 +83,7 @@ Here's an example of an app `nglue.config` file;
     "menu": "menu",
     "sorting": "sorting"
 }
-</per>
+</pre>
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
