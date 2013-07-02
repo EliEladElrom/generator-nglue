@@ -115,6 +115,9 @@ module.exports = function (grunt) {
     // for each module
 
     grunt.log.writeln('\n' + JSON.stringify(allModuleComponentFiles));
+
+    grunt.option('appComponentName', moduleConfig.name);
+    grunt.option('appComponentNameVersion', moduleConfig.version);
   }
 
   /**
@@ -145,6 +148,10 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     glblpkg: grunt.file.readJSON('./code_base/assets/nglue.json'),
 
+    optionSrc: grunt.option('src'),
+    appComponentName: grunt.option('appComponentName'),
+    appComponentNameVersion: grunt.option('appComponentNameVersion'),
+
     clean: [
       'code_base/dist/'
     ],
@@ -159,6 +166,18 @@ module.exports = function (grunt) {
         files: {
           'code_base/dist/js/<%= glblpkg.name %>-<%= glblpkg.version %>.min.js': globalComponentFiles,
           'code_base/dist/js/<%= glblpkg.name %>-latest.min.js': globalComponentFiles
+        }
+      },
+      allModuleComponentFiles: {
+        options: {
+          compress: {
+            unsafe: false
+          }
+        },
+        files: {
+          'code_base/dist/js/<%= appComponentName %>-<%= appComponentNameVersion %>.min.js': allModuleComponentFiles,
+          'code_base/dist/js/<%= appComponentName %>-latest.min.js': allModuleComponentFiles,
+          'code_base/apps/<%= optionSrc %>/<%= appComponentName %>-latest.min.js': allModuleComponentFiles
         }
       }
     },
@@ -202,6 +221,6 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean', 'copy', 'uglify', 'less']);
-  grunt.registerTask('app', []);
+  grunt.registerTask('default', ['clean', 'copy', 'uglify:globalComponentFiles', 'less']);
+  grunt.registerTask('app', ['uglify:allModuleComponentFiles']);
 };
