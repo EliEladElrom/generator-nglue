@@ -48,8 +48,6 @@ NglueGenerator.prototype.askFor = function askFor() {
 NglueGenerator.prototype.app = function app() {
   this.mkdir('code_base');
   this.mkdir('code_base/apps');
-  this.mkdir('code_base/apps/mobile');
-  this.mkdir('code_base/apps/web');
   this.mkdir('code_base/assets');
   this.mkdir('code_base/assets/bower_components');
   this.mkdir('code_base/assets/components');
