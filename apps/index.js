@@ -23,7 +23,7 @@ ApplicationGenerator.prototype.createStructure = function createStructure() {
 ApplicationGenerator.prototype.files = function files() {
   this.template('app.js', this.moduleDirectory + 'app/app.js');
   this.template('_index.html', this.moduleDirectory + 'index.html');
-  this.template('_config.json', this.moduleDirectory + 'config.json');
+  this.template('_nglue.json', this.moduleDirectory + 'nglue.json');
 };
 
 

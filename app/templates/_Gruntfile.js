@@ -14,7 +14,7 @@ module.exports = function (grunt) {
    * Build -- global
    */
 
-  var globalConfig = require('./code_base/assets/config.json'),
+  var globalConfig = require('./code_base/assets/nglue.json'),
     globaljsFiles = [],
     globalLessFiles = [],
     key;
@@ -39,7 +39,7 @@ module.exports = function (grunt) {
     return 'code_base/assets/style/' + p;
   });
 
-  grunt.log.write('reading information from \'code_base/assets/config.json\'');
+  grunt.log.write('reading information from \'code_base/assets/nglue.json\'');
 
   grunt.initConfig({
 
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
      * version.
      */
     pkg: grunt.file.readJSON('package.json'),
-    glblpkg: grunt.file.readJSON('./code_base/assets/config.json'),
+    glblpkg: grunt.file.readJSON('./code_base/assets/nglue.json'),
 
     clean: [
       'code_base/dist/'

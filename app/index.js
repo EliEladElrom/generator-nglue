@@ -63,7 +63,7 @@ NglueGenerator.prototype.app = function app() {
 
   this.template('_package.json', 'package.json');
   this.template('_bower.json', 'bower.json');
-  this.template('_config.json', 'code_base/assets/config.json');
+  this.template('_nglue.json', 'code_base/assets/nglue.json');
   this.copy('_Gruntfile.js', 'Gruntfile.js');
   this.copy('_gitignore', '.gitignore');
   this.template('_base.less', 'code_base/assets/style/base.less');
