@@ -69,6 +69,11 @@ NglueGenerator.prototype.app = function app() {
   this.copy('_Gruntfile.js', 'Gruntfile.js');
   this.copy('_gitignore', '.gitignore');
   this.template('_base.less', 'code_base/assets/style/base.less');
+
+  // readme files
+  this.template('_README.md', 'README.md');
+  this.template('_README_DIST.md', 'code_base/dist/README.md');
+  this.template('_README_DIST.md', 'dist/README.md');
 };
 
 NglueGenerator.prototype.projectfiles = function projectfiles() {
