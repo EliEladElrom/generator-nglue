@@ -60,5 +60,28 @@ js/your-project-name-global-components-0.0.0.min.js
 js/your-project-name-global-components-latest.min.js
 </pre>
 
+To build a min module component file for an app do the following;
+
+> grunt app --src=detail-page-app
+
+This grunt task will fetch the `nglue.config` file from the app and will glue together all the modules bower and none bower components as well as a less files.
+The `nglue.config` file of an app includes all modules you are adding together and than it go to work and pick each `nglue.confoig` from each module to create the component
+library and less files.  When you created the app using `yo nglue:apps home` it will create the scaffolding and template as well as basic `nglue.config` file.
+
+Here's an example of an app `nglue.config` file;
+
+<pre>
+{
+  "version": "0.0.1",
+  "name": "detail-page-app",
+  "dependencies": {
+    "map": "map",
+    "dropdown": "dropdown",
+    "infinite-scroll": "infinite-scroll",
+    "menu": "menu",
+    "sorting": "sorting"
+}
+</per>
+
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)

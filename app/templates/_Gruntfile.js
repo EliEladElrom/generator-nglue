@@ -11,27 +11,117 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-notify');
 
   /**
-   * Build -- global
+   * Options
+   */
+  var src = grunt.option('src') || '';
+
+  /**
+   * Build -- global config json
    */
 
   var globalConfig = require('./code_base/assets/nglue.json'),
-    globaljsFiles = [],
-    globalLessFiles = [],
-    key;
+    globalComponentFiles,
+    globalLessFiles,
+    moduleComponentFiles,
+    allModuleComponentFiles = [],
+    moduleLessFiles;
 
-  for (key in globalConfig.dependencies) {
-    if (globalConfig.dependencies.hasOwnProperty(key)) {
-      globaljsFiles.push(globalConfig.dependencies[key]);
+  var convertKeyToArray = function (object, keyName, array) {
+    var key,
+      retArray = [];
+
+    for (key in object[keyName]) {
+      if (object[keyName].hasOwnProperty(key)) {
+        if (array !== undefined) {
+          array.push(object[keyName][key]);
+        } else {
+          retArray.push(object[keyName][key]);
+        }
+      }
     }
+
+    if (array === undefined) {
+      return retArray;
+    }
+  };
+
+  var convertKeyToKeyValuesArray = function (object, keyName, moduleName, array) {
+    var key;
+
+    for (key in object[keyName]) {
+      if (object[keyName].hasOwnProperty(key)) {
+
+        array.push({
+          name: moduleName,
+          value: object[keyName][key]
+        });
+      }
+    }
+  };
+
+  var findModuleNameBasedOnComponentURL = function (componentURL, array) {
+    var i,
+      len;
+
+    len = array.length;
+
+    for (i = 0; i < len; ++i) {
+      if (array[i].value === componentURL) {
+        return array[i].name;
+      }
+    }
+  };
+
+  /**
+   * Define apps modules for app task
+   */
+
+  globalComponentFiles = convertKeyToArray(globalConfig, 'dependencies', undefined);
+  globalLessFiles = convertKeyToArray(globalConfig, 'less', undefined);
+
+  if (src !== '') {
+    var moduleConfig = require('./code_base/apps/' + src + '/nglue.json');
+    moduleComponentFiles = convertKeyToArray(moduleConfig, 'dependencies', undefined);
+    moduleLessFiles = convertKeyToArray(moduleConfig, 'less', undefined);
+
+    grunt.log.writeln('\nFound the following dependencies: ' + JSON.stringify(moduleComponentFiles) + '\n');
+
+    var len = moduleComponentFiles.length,
+      i,
+      moduleDepn,
+      moduleConfigUrl,
+      allModuleComponentFiles_keys = [];
+
+    for (i = 0; i < len; ++i) {
+      moduleConfigUrl = './code_base/modules/' + moduleComponentFiles[i] + '/nglue.json';
+      grunt.log.writeln('Loading: ' + moduleConfigUrl);
+      moduleDepn = require(moduleConfigUrl);
+
+      convertKeyToKeyValuesArray(moduleDepn, 'dependencies', moduleComponentFiles[i], allModuleComponentFiles_keys);
+      convertKeyToArray(moduleDepn, 'dependencies', allModuleComponentFiles);
+    }
+
+    var latest = [];
+    allModuleComponentFiles = allModuleComponentFiles.reduce(function (a, b) {
+      if (a.indexOf(b) < 0) {
+        a.push(b);
+        latest.push(findModuleNameBasedOnComponentURL(b, allModuleComponentFiles_keys) + '/' + b);
+      }
+      return a;
+    }, []);
+    allModuleComponentFiles = latest;
+
+    // TODO: EE add validation to ensure component files are the same files
+    // for each module
+
+    grunt.log.writeln('\n' + JSON.stringify(allModuleComponentFiles));
   }
 
-  for (key in globalConfig.less) {
-    if (globalConfig.less.hasOwnProperty(key)) {
-      globalLessFiles.push(globalConfig.less[key]);
-    }
-  }
+  /**
+   * Build -- mapping
+   */
 
-  globaljsFiles = globaljsFiles.map(function (p) {
+  globalComponentFiles = globalComponentFiles.map(function (p) {
     return 'code_base/assets/' + p;
   });
 
@@ -39,7 +129,12 @@ module.exports = function (grunt) {
     return 'code_base/assets/style/' + p;
   });
 
-  grunt.log.write('reading information from \'code_base/assets/nglue.json\'');
+  allModuleComponentFiles = allModuleComponentFiles.map(function (p) {
+    return 'code_base/modules/' + p;
+  });
+
+  // for debugging
+  // grunt.log.write('reading information from \'code_base/assets/nglue.json\'');
 
   grunt.initConfig({
 
@@ -55,15 +150,15 @@ module.exports = function (grunt) {
     ],
 
     uglify: {
-      globaljsFiles: {
+      globalComponentFiles: {
         options: {
           compress: {
             unsafe: false
           }
         },
         files: {
-          'code_base/dist/js/<%= glblpkg.name %>-<%= glblpkg.version %>.min.js': globaljsFiles,
-          'code_base/dist/js/<%= glblpkg.name %>-latest.min.js': globaljsFiles
+          'code_base/dist/js/<%= glblpkg.name %>-<%= glblpkg.version %>.min.js': globalComponentFiles,
+          'code_base/dist/js/<%= glblpkg.name %>-latest.min.js': globalComponentFiles
         }
       }
     },
@@ -108,4 +203,5 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', ['clean', 'copy', 'uglify', 'less']);
+  grunt.registerTask('app', []);
 };
