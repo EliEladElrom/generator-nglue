@@ -27,7 +27,7 @@ ModuleGenerator.prototype.createStructure = function createStructure() {
 };
 
 ModuleGenerator.prototype.files = function files() {
-  this.template('scripts/app.js', this.moduleDirectory + 'scripts/app.js');
+  this.template('scripts/_app.js', this.moduleDirectory + 'scripts/app.js');
   this.template('scripts/controllers/_Module.js', this.moduleDirectory + 'scripts/controllers/' + this.moduleName + '.js');
   this.template('assets/views/_Module.html', this.moduleDirectory + 'assets/views/' + this.moduleName + '.html');
   this.template('_index.html', this.moduleDirectory + 'index.html');

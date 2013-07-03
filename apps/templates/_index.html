@@ -1,12 +1,19 @@
 <!doctype html>
-<html ng-app="<%= _.slugify(name) %>App">
+<html ng-app="<%= appName %>">
 <head>
-<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <title><%= _.slugify(name) %>App</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <title><%= appName %></title>
 </head>
 
-<!-- components directives and controllers -->
-<script src="app/app.js"></script>
+<!-- libs -->
+<!-- implement -->
+
+<!-- module's Angular.js controllers, directives, etc. -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/<%= appName %>.js"></script>
+
+<!-- components partial -->
+<div ng-include src="'assets/views/<%= appName %>.html'"></div>
 
 </body>
 </html>

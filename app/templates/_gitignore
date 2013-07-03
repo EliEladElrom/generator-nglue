@@ -1,5 +1,8 @@
 .idea
-node_modules/
 dist/
 .DS_Store
-code_base/assets/bower_components/
+
+# ignore all bower based downloads
+bower_components/
+# ignore all npm based downloads
+node_modules/
