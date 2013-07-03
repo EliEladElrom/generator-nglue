@@ -3,6 +3,8 @@
   "name": "<%= _.slugify(name) %>-app",
   "dependencies": {
   },
+  "nglue-dependencies": {
+  },
   "less": {
   }
 }
