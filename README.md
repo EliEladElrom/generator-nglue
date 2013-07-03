@@ -47,6 +47,9 @@ Here's the default initial file you are given when you initialize the generator;
   },
   "less": {
     "base" : "../style/base.less"
+  },
+  "copy": {
+    "src": "assets/images"
   }
 }
 </pre>
