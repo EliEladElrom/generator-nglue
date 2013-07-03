@@ -280,10 +280,27 @@ module.exports = function (grunt) {
       app: {
         files: copyFiles
       }
+    },
+
+    /**
+     * replace relative directory in dist
+     */
+    replace: {
+      dist: {
+        options: {
+          variables: {
+            '/': '../../'
+          },
+          prefix: '../../dist'
+        },
+        files: [
+          {src: ['code_base/dist/apps/<%= optionSrc %>/index.html'], dest: 'code_base/dist/apps/<%= optionSrc %>/index.html'}
+        ]
+      }
     }
 
   });
 
   grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'less:globalLessFiles']);
-  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'copy:app']);
+  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'copy:app', 'replace:dist']);
 };
