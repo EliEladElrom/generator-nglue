@@ -1,3 +1,6 @@
+'use strict';
+/* jshint camelcase:false */
+
 module.exports = function (grunt) {
 
   /**
@@ -8,7 +11,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-notify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   /**
    * Options
@@ -22,9 +27,14 @@ module.exports = function (grunt) {
   var globalConfig = require('./code_base/assets/nglue.json'),
     globalComponentFiles,
     globalLessFiles,
+    globalSassFiles,
+    globalCssFiles,
     moduleComponentFiles,
     allModuleComponentFiles = [],
     moduleLessFiles = [],
+    moduleSassFiles = [],
+    moduleCssFiles = [],
+    moduleScriptsFiles = [],
     copyModuleFiles = [],
     copyFiles = [];
 
@@ -74,6 +84,14 @@ module.exports = function (grunt) {
     }
   };
 
+  var getSourceUrl = function (array, array_keys) {
+    var latest = [];
+    array_keys.forEach(function (element, index, arr) {
+      latest.push('code_base/modules/' + element.name + '/' + element.value);
+    });
+    return latest;
+  };
+
   var removeDuplicationAndUpdateURL = function (array, array_keys) {
     var latest = [];
     array.reduce(function (a, b) {
@@ -110,11 +128,16 @@ module.exports = function (grunt) {
 
   globalComponentFiles = convertKeyToArray(globalConfig, 'dependencies', undefined);
   globalLessFiles = convertKeyToArray(globalConfig, 'less', undefined);
+  globalSassFiles = convertKeyToArray(globalConfig, 'sass', undefined);
+  globalCssFiles = convertKeyToArray(globalConfig, 'css', undefined);
 
   if (src !== '') {
     var moduleConfig = require('./code_base/apps/' + src + '/nglue.json');
     moduleComponentFiles = convertKeyToArray(moduleConfig, 'nglue-dependencies', undefined);
     moduleLessFiles = convertKeyToArray(moduleConfig, 'less', undefined);
+    moduleSassFiles = convertKeyToArray(moduleConfig, 'sass', undefined);
+    moduleCssFiles = convertKeyToArray(moduleConfig, 'css', undefined);
+    moduleScriptsFiles = convertKeyToArray(moduleScriptsFiles, 'scripts', undefined);
     copyModuleFiles = convertKeyToArray(copyModuleFiles, 'copy', undefined);
 
     grunt.log.writeln('\nGrunt found the following nglue-dependencies: ' + JSON.stringify(moduleComponentFiles) + '\n');
@@ -125,6 +148,9 @@ module.exports = function (grunt) {
       moduleConfigUrl,
       allModuleComponentFiles_keys = [],
       allModuleLessFiles_keys = [],
+      allModuleSassFiles_keys = [],
+      allModuleCssFiles_keys = [],
+      allModuleScriptsFiles_keys = [],
       allModuleCopyFiles_keys = [];
 
     for (i = 0; i < len; ++i) {
@@ -134,10 +160,16 @@ module.exports = function (grunt) {
 
       convertKeyToKeyValuesArray(moduleDepn, 'dependencies', moduleComponentFiles[i], allModuleComponentFiles_keys);
       convertKeyToKeyValuesArray(moduleDepn, 'less', moduleComponentFiles[i], allModuleLessFiles_keys);
+      convertKeyToKeyValuesArray(moduleDepn, 'sass', moduleComponentFiles[i], allModuleSassFiles_keys);
+      convertKeyToKeyValuesArray(moduleDepn, 'css', moduleComponentFiles[i], allModuleCssFiles_keys);
+      convertKeyToKeyValuesArray(moduleDepn, 'scripts', moduleComponentFiles[i], allModuleScriptsFiles_keys);
       convertKeyToKeyValuesArray(moduleDepn, 'copy', moduleComponentFiles[i], allModuleCopyFiles_keys);
 
       convertKeyToArray(moduleDepn, 'dependencies', allModuleComponentFiles);
       convertKeyToArray(moduleDepn, 'less', moduleLessFiles);
+      convertKeyToArray(moduleDepn, 'sass', moduleSassFiles);
+      convertKeyToArray(moduleDepn, 'css', moduleCssFiles);
+      convertKeyToArray(moduleDepn, 'scripts', moduleScriptsFiles);
       convertKeyToArray(moduleDepn, 'copy', copyModuleFiles);
     }
 
@@ -147,14 +179,21 @@ module.exports = function (grunt) {
     }
 
     moduleLessFiles = removeDuplicationAndUpdateURL(moduleLessFiles, allModuleLessFiles_keys);
+    moduleSassFiles = removeDuplicationAndUpdateURL(moduleSassFiles, allModuleSassFiles_keys);
+    moduleCssFiles = removeDuplicationAndUpdateURL(moduleCssFiles, allModuleCssFiles_keys);
+    moduleScriptsFiles = getSourceUrl(moduleScriptsFiles, allModuleScriptsFiles_keys);
     allModuleComponentFiles = removeDuplicationAndUpdateURL(allModuleComponentFiles, allModuleComponentFiles_keys);
 
+    // TODO: MK sass works but needs to be rethought, maybe use compass?
     // TODO: EE add validation to ensure component files are the same files for each module
     grunt.log.writeln('\nApp dependencies: ' + JSON.stringify(allModuleComponentFiles));
     grunt.log.writeln('\nApp less:' + JSON.stringify(moduleLessFiles));
+    grunt.log.writeln('\nApp sass:' + JSON.stringify(moduleSassFiles));
+    grunt.log.writeln('\nApp css:' + JSON.stringify(moduleCssFiles));
+    grunt.log.writeln('\nApp scripts:' + JSON.stringify(moduleScriptsFiles));  // TODO: MK should this be allModuleScriptsFiles_keys?
     grunt.log.writeln('\nApp copy:' + JSON.stringify(allModuleCopyFiles_keys));
 
-    grunt.log.writeln('\ncopyFile: ' + JSON.stringify(copyFiles));
+    grunt.log.writeln('\ncopyFiles: ' + JSON.stringify(copyFiles));
 
     grunt.option('appComponentName', moduleConfig.name);
     grunt.option('appComponentNameVersion', moduleConfig.version);
@@ -169,7 +208,15 @@ module.exports = function (grunt) {
   });
 
   globalLessFiles = globalLessFiles.map(function (p) {
-    return 'code_base/assets/style/' + p;
+    return 'code_base/assets/styles/' + p;
+  });
+
+  globalSassFiles = globalSassFiles.map(function (p) {
+    return 'code_base/assets/styles/' + p;
+  });
+
+  globalCssFiles = globalCssFiles.map(function (p) {
+    return 'code_base/assets/styles/' + p;
   });
 
   allModuleComponentFiles = allModuleComponentFiles.map(function (p) {
@@ -177,6 +224,14 @@ module.exports = function (grunt) {
   });
 
   moduleLessFiles = moduleLessFiles.map(function (p) {
+    return 'code_base/modules/' + p;
+  });
+
+  moduleSassFiles = moduleSassFiles.map(function (p) {
+    return 'code_base/modules/' + p;
+  });
+
+  moduleCssFiles = moduleCssFiles.map(function (p) {
     return 'code_base/modules/' + p;
   });
 
@@ -221,6 +276,18 @@ module.exports = function (grunt) {
           'code_base/dist/assets/components/<%= appComponentName %>-latest.min.js': allModuleComponentFiles,
           'code_base/apps/<%= optionSrc %>/assets/components/<%= appComponentName %>-latest.min.js': allModuleComponentFiles
         }
+      },
+      allModuleScriptsFiles: {
+        options: {
+          compress: false,
+          mangle: false,
+          beautify: true
+        },
+        files: {
+          'code_base/dist/assets/components/<%= appComponentName %>-modules-<%= appComponentNameVersion %>.min.js': moduleScriptsFiles,
+          'code_base/dist/assets/components/<%= appComponentName %>-modules-latest.min.js': moduleScriptsFiles,
+          'code_base/apps/<%= optionSrc %>/assets/components/<%= appComponentName %>-modules-latest.min.js': moduleScriptsFiles
+        }
       }
     },
 
@@ -232,8 +299,8 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          'code_base/dist/assets/style/<%= glblpkg.name %>-latest.css': globalLessFiles,
-          'code_base/dist/assets/style/<%= glblpkg.name %>-<%= glblpkg.version %>.css': globalLessFiles
+          'code_base/dist/assets/styles/<%= glblpkg.name %>-latest.css': globalLessFiles,
+          'code_base/dist/assets/styles/<%= glblpkg.name %>-<%= glblpkg.version %>.css': globalLessFiles
         }
       },
       moduleLessFiles: {
@@ -243,9 +310,51 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          'code_base/dist/assets/style/<%= appComponentName %>-<%= appComponentNameVersion %>.min.js': moduleLessFiles,
-          'code_base/dist/assets/style/<%= appComponentName %>-latest.css': moduleLessFiles,
-          'code_base/apps/<%= optionSrc %>/assets/style/<%= appComponentName %>-latest.css': moduleLessFiles
+          'code_base/dist/assets/styles/<%= appComponentName %>-latest.css': moduleLessFiles,
+          'code_base/apps/<%= optionSrc %>/assets/styles/<%= appComponentName %>-latest.css': moduleLessFiles
+        }
+      }
+    },
+
+    sass: {
+      globalSassFiles: {
+        files: {
+          'code_base/dist/assets/styles/<%= glblpkg.name %>-latest.css': globalSassFiles,
+          'code_base/dist/assets/styles/<%= glblpkg.name %>-<%= glblpkg.version %>.css': globalSassFiles
+        }
+      },
+      moduleSassFiles: {
+        files: {
+          'code_base/dist/assets/styles/<%= appComponentName %>-latest.css': moduleSassFiles,
+          'code_base/apps/<%= optionSrc %>/assets/styles/<%= appComponentName %>-latest.css': moduleSassFiles
+        }
+      }
+    },
+
+    cssmin: {
+      // includes target css file first in order to preserve any less/sass processing that might have occurred
+      globalCssFiles: {
+        files: {
+          'code_base/dist/assets/styles/<%= glblpkg.name %>-latest.css': [
+            'code_base/dist/assets/styles/<%= glblpkg.name %>-latest.css',
+            globalCssFiles
+          ],
+          'code_base/dist/assets/styles/<%= glblpkg.name %>-<%= glblpkg.version %>.css': [
+            'code_base/dist/assets/styles/<%= glblpkg.name %>-<%= glblpkg.version %>.css',
+            globalCssFiles
+          ]
+        }
+      },
+      moduleCssFiles: {
+        files: {
+          'code_base/dist/assets/styles/<%= appComponentName %>-latest.css': [
+            'code_base/dist/assets/styles/<%= appComponentName %>-latest.css',
+            moduleCssFiles
+          ],
+          'code_base/apps/<%= optionSrc %>/assets/styles/<%= appComponentName %>-latest.css': [
+            'code_base/apps/<%= optionSrc %>/assets/styles/<%= appComponentName %>-latest.css',
+            moduleCssFiles
+          ]
         }
       }
     },
@@ -301,6 +410,9 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'less:globalLessFiles']);
-  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'copy:app', 'replace:dist']);
+//  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'less:globalLessFiles', 'sass:globalSassFiles', 'cssmin:globalCssFiles']);
+//  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'sass:moduleSassFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
+  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'cssmin:globalCssFiles']);
+  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'uglify:allModuleScriptsFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
+
 };

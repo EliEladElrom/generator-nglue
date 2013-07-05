@@ -4,9 +4,19 @@ var yeoman = require('yeoman-generator');
 
 var ModuleGenerator = module.exports = function ModuleGenerator(args, options, config) {
   yeoman.generators.NamedBase.apply(this, arguments);
-  console.log('Creating module ' + this.name + ' at \'code_base/modules/\'');
-  this.moduleDirectory = 'code_base/modules/' + this.name + '/';
-  this.moduleName = this.name + 'Module';
+  if (!isValidJavascriptIdentifier(this.name)) {
+    throw('invalid module name ' + this.name);
+  } else {
+    console.log('Creating module ' + this.name + ' at \'code_base/modules/\'');
+    this.moduleDirectory = 'code_base/modules/' + this.name + '/';
+    this.moduleName = this.name + 'Module';
+    this.moduleControllerName = this.moduleName.charAt(0).toUpperCase() + this.moduleName.slice(1) + 'Controller';
+  }
+};
+
+var isValidJavascriptIdentifier = function(str) {
+  var validName = /^[$A-Z_][0-9A-Z_$]*$/i;
+  return validName.test(str);
 };
 
 util.inherits(ModuleGenerator, yeoman.generators.NamedBase);

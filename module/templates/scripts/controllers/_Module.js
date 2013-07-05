@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('<%= moduleName %>')
-  .controller('<%= moduleName %>Controller', ['$scope', function ($scope) {
+  .controller('<%= moduleControllerName  %>', ['$scope', function ($scope) {
     // implement
   }]);

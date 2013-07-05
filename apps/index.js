@@ -6,8 +6,18 @@ var yeoman = require('yeoman-generator');
 var ApplicationGenerator = module.exports = function ApplicationGenerator(args, options, config) {
   yeoman.generators.NamedBase.apply(this, arguments);
   console.log('Creating app ' + this.name + ' at \'code_base/apps/\'');
-  this.appDirectory = 'code_base/apps/' + this.name + '/';
-  this.appName = this.name + 'App';
+  if (!isValidJavascriptIdentifier(this.name)) {
+    throw('invalid app name ' + this.name);
+  } else {
+    this.appDirectory = 'code_base/apps/' + this.name + '/';
+    this.appName = this.name + 'App';
+    this.appControllerName = this.appName.charAt(0).toUpperCase() + this.appName.slice(1) + 'Controller';
+  }
+};
+
+var isValidJavascriptIdentifier = function(str) {
+  var validName = /^[$A-Z_][0-9A-Z_$]*$/i;
+  return validName.test(str);
 };
 
 util.inherits(ApplicationGenerator, yeoman.generators.NamedBase);

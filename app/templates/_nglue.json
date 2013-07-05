@@ -6,6 +6,6 @@
     "angular-mocks": "bower_components/angular-mocks/angular-mocks.js"
   },
   "less": {
-    "base" : "../style/base.less"
+    "base" : "../styles/base.less"
   }
 }
