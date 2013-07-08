@@ -1,6 +1,7 @@
 'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var path = require('path');
 
 var ModuleGenerator = module.exports = function ModuleGenerator(args, options, config) {
   yeoman.generators.NamedBase.apply(this, arguments);
@@ -8,6 +9,7 @@ var ModuleGenerator = module.exports = function ModuleGenerator(args, options, c
     throw('invalid module name ' + this.name);
   } else {
     console.log('Creating module ' + this.name + ' at \'code_base/modules/\'');
+    this.projectName = require(path.join(process.cwd(), 'package.json')).name;
     this.moduleDirectory = 'code_base/modules/' + this.name + '/';
     this.moduleName = this.name + 'Module';
     this.moduleControllerName = this.moduleName.charAt(0).toUpperCase() + this.moduleName.slice(1) + 'Controller';

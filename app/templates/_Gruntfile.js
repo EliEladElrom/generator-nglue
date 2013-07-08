@@ -410,9 +410,11 @@ module.exports = function (grunt) {
 
   });
 
-//  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'less:globalLessFiles', 'sass:globalSassFiles', 'cssmin:globalCssFiles']);
-//  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'sass:moduleSassFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
-  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'cssmin:globalCssFiles']);
-  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'uglify:allModuleScriptsFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
+  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'less:globalLessFiles', 'cssmin:globalCssFiles']);
+  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
+
+  // TODO: EE: refactor and move into grunt module
+  //grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'cssmin:globalCssFiles']);
+  //grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'uglify:allModuleScriptsFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
 
 };

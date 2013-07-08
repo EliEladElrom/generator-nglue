@@ -3,7 +3,16 @@
 <head>
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <title><%= appName %></title>
+
+  <!-- style -->
+  <link href="assets/styles/<%= projectName %>-global-components-latest.css" rel="stylesheet">
+  <link href="../../dist/assets/styles/<%= appName %>-app-latest.css" rel="stylesheet">
+
 </head>
+
+<!-- global and component specific -->
+<script src="../../dist/assets/components/<%= projectName %>-global-components-latest.min.js"></script>
+<script src="assets/components/<%= appName %>-app-latest.min.js"></script>
 
 <!-- libs -->
 <!-- implement -->

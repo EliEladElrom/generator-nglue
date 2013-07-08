@@ -1,6 +1,7 @@
 'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var path = require('path');
 
 
 var ApplicationGenerator = module.exports = function ApplicationGenerator(args, options, config) {
@@ -9,6 +10,7 @@ var ApplicationGenerator = module.exports = function ApplicationGenerator(args, 
   if (!isValidJavascriptIdentifier(this.name)) {
     throw('invalid app name ' + this.name);
   } else {
+    this.projectName = require(path.join(process.cwd(), 'package.json')).name;
     this.appDirectory = 'code_base/apps/' + this.name + '/';
     this.appName = this.name + 'App';
     this.appControllerName = this.appName.charAt(0).toUpperCase() + this.appName.slice(1) + 'Controller';
