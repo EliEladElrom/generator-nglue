@@ -30,8 +30,13 @@ angular.module('pagedListModule')
 ```
 
 
-The module's interface file is outside of the `scripts` directory, so it will not be included when uglifying the module's source code.  Instead, each app that nglues the pagedListModule needs to create a working interface service itself.  Thanks to Angular's dependency injection, the pagedListModuleInterface that we create for meetingsApp will be injected back into any controllers or services that were defined in pagedListModule, ngluing together the app and it's module components.
+The module's interface file is outside of the `scripts` directory, so it will not be included when uglifying the module's source code.  Instead, each app that nglues the pagedListModule needs to create a working interface service itself.  
 
+Thanks to Angular's dependency injection, the pagedListModuleInterface that we create for meetingsApp will be injected back into any controllers or services that were defined in pagedListModule, ngluing together the app and it's module components.  Note the injection below into the controller within `pagedListModule`.  The service defined in `meetingsApp` will in fact be injected here when used within the app.
+```
+angular.module('pagedListModule')
+  .controller('PagedListModuleController', ['$scope', 'pagedListModuleInterface', function ($scope, pagedListModuleInterface) {
+```
 Here is an example of how the app, `meetingsApp`, implements the `pagedListModuleInterface`:
 
 ```
