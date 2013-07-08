@@ -39,7 +39,9 @@ ModuleGenerator.prototype.createStructure = function createStructure() {
 ModuleGenerator.prototype.files = function files() {
   this.template('scripts/_app.js', this.moduleDirectory + 'scripts/app.js');
   this.template('scripts/controllers/_Module.js', this.moduleDirectory + 'scripts/controllers/' + this.moduleName + '.js');
+  this.template('assets/styles/_Module.css', this.moduleDirectory + 'assets/styles/' + this.moduleName + '.css');
   this.template('assets/views/_Module.html', this.moduleDirectory + 'assets/views/' + this.moduleName + '.html');
+  this.template('_ModuleInterface.js', this.moduleDirectory + this.moduleName + 'Interface.js');
   this.template('_index.html', this.moduleDirectory + 'index.html');
   this.template('_nglue.json', this.moduleDirectory + 'nglue.json');
 };

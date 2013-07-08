@@ -4,5 +4,14 @@
   "dependencies": {
   },
   "less": {
+  },
+  "css": {
+    "<%= moduleName %>": "assets/styles/<%= moduleName %>.css"
+  },
+  "copy": {
+    "images": "assets/images"
+  },
+  "scripts": {
+    "scripts": "scripts/**/*.js"
   }
 }
