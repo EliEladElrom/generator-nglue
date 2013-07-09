@@ -31,6 +31,7 @@ ApplicationGenerator.prototype.createStructure = function createStructure() {
   this.mkdir(this.appDirectory + 'scripts/directives');
   this.mkdir(this.appDirectory + 'scripts/filters');
   this.mkdir(this.appDirectory + 'scripts/services');
+  this.mkdir(this.appDirectory + 'scripts/interfaces');
   this.mkdir(this.appDirectory + 'assets');
   this.mkdir(this.appDirectory + 'assets/bower_components');
   this.mkdir(this.appDirectory + 'assets/components');
