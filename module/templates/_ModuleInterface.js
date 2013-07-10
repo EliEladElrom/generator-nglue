@@ -11,4 +11,4 @@ angular.module('<%= moduleName %>')
     });
 
     return serviceAPI;
-  }])
+  }]);

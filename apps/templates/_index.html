@@ -5,17 +5,16 @@
   <title><%= appName %></title>
 
   <!-- style -->
-  <link href="assets/styles/<%= projectName %>-global-components-latest.css" rel="stylesheet">
-  <link href="../../dist/assets/styles/<%= appName %>-app-latest.css" rel="stylesheet">
+  <link href="../../dist/assets/styles/<%= projectName %>-global-components-latest.css" rel="stylesheet">
+  <link href="assets/styles/<%= _.slugify(name) %>-app-latest.css" rel="stylesheet">
 
 </head>
 
 <!-- global and component specific -->
 <script src="../../dist/assets/components/<%= projectName %>-global-components-latest.min.js"></script>
-<script src="assets/components/<%= appName %>-app-latest.min.js"></script>
+<script src="assets/components/<%= _.slugify(name) %>-app-latest.min.js"></script>
 
 <!-- libs -->
-<!-- implement -->
 
 <!-- module's Angular.js controllers, directives, etc. -->
 <script src="scripts/app.js"></script>
