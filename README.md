@@ -47,7 +47,9 @@ Here's the default initial file you are given when you initialize the generator;
   "version": "0.0.0",
   "name": "your-project-name-global-components",
   "dependencies": {
-    "angular": "bower_components/angular/angular.js",
+    "angular": "bower_components/angular/angular.js"
+  },
+  "devDependencies": {
     "angular-mocks": "bower_components/angular-mocks/angular-mocks.js"
   },
   "less": {
@@ -67,10 +69,17 @@ Once you run `grunt` the compiled js and css files will be published to `code_ba
 It uses the `config.js > name` and `version` to generate the names as follow;
 
 <pre>
+// global style
 styles/your-project-name-global-components-0.0.0.css
 styles/your-project-name-global-components-latest.css
+
+// global components
 js/your-project-name-global-components-0.0.0.min.js
 js/your-project-name-global-components-latest.min.js
+
+// global dev-dependencies components
+js/your-project-name-global-components-dev-dependencies-0.0.0.min.js
+js/your-project-name-global-components-dev-dependencies-latest.min.js
 </pre>
 
 To build a min module component file for an app do the following;

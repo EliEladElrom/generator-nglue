@@ -55,7 +55,6 @@ NglueGenerator.prototype.app = function app() {
   this.mkdir('code_base/assets/images');
   this.mkdir('code_base/assets/styles');
   this.mkdir('code_base/modules');
-  this.mkdir('compile');
   this.mkdir('code_base/dist');
   this.mkdir('dist');
 

@@ -26,6 +26,7 @@ module.exports = function (grunt) {
 
   var globalConfig = require('./code_base/assets/nglue.json'),
     globalComponentFiles,
+    globalComponentDevFiles,
     globalLessFiles,
     globalSassFiles,
     globalCssFiles,
@@ -127,6 +128,7 @@ module.exports = function (grunt) {
    */
 
   globalComponentFiles = convertKeyToArray(globalConfig, 'dependencies', undefined);
+  globalComponentDevFiles = convertKeyToArray(globalConfig, 'devDependencies', undefined);
   globalLessFiles = convertKeyToArray(globalConfig, 'less', undefined);
   globalSassFiles = convertKeyToArray(globalConfig, 'sass', undefined);
   globalCssFiles = convertKeyToArray(globalConfig, 'css', undefined);
@@ -207,6 +209,10 @@ module.exports = function (grunt) {
     return 'code_base/assets/' + p;
   });
 
+  globalComponentDevFiles = globalComponentDevFiles.map(function (p) {
+    return 'code_base/assets/' + p;
+  });
+
   globalLessFiles = globalLessFiles.map(function (p) {
     return 'code_base/assets/styles/' + p;
   });
@@ -263,6 +269,17 @@ module.exports = function (grunt) {
         files: {
           'code_base/dist/assets/components/<%= glblpkg.name %>-<%= glblpkg.version %>.min.js': globalComponentFiles,
           'code_base/dist/assets/components/<%= glblpkg.name %>-latest.min.js': globalComponentFiles
+        }
+      },
+      globalComponentDevFiles: {
+        options: {
+          compress: {
+            unsafe: false
+          }
+        },
+        files: {
+          'code_base/dist/assets/components/<%= glblpkg.name %>-dev-dependencies-<%= glblpkg.version %>.min.js': globalComponentDevFiles,
+          'code_base/dist/assets/components/<%= glblpkg.name %>-dev-dependencies-latest.min.js': globalComponentDevFiles
         }
       },
       allModuleComponentFiles: {
@@ -410,7 +427,7 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'less:globalLessFiles', 'cssmin:globalCssFiles']);
+  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'uglify:globalComponentDevFiles', 'less:globalLessFiles', 'cssmin:globalCssFiles']);
   grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
 
   // TODO: EE: refactor and move into grunt module
