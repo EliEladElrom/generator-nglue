@@ -51,9 +51,9 @@ NglueGenerator.prototype.app = function app() {
   this.mkdir('code_base/assets');
   this.mkdir('code_base/assets/bower_components');
   this.mkdir('code_base/assets/components');
-  this.mkdir('code_base/assets/styles');
   this.mkdir('code_base/assets/fonts');
   this.mkdir('code_base/assets/images');
+  this.mkdir('code_base/assets/styles');
   this.mkdir('code_base/modules');
   this.mkdir('compile');
   this.mkdir('code_base/dist');
@@ -63,15 +63,15 @@ NglueGenerator.prototype.app = function app() {
 
   this.template('_package.json', 'package.json');
   this.template('_bower.json', 'bower.json');
-  this.template('_nglue.json', 'code_base/assets/nglue.json');
+  this.template('code_base/assets/_nglue.json', 'code_base/assets/nglue.json');
   this.copy('_Gruntfile.js', 'Gruntfile.js');
   this.copy('_gitignore', '.gitignore');
-  this.template('_base.less', 'code_base/assets/styles/base.less');
+  this.template('code_base/assets/styles/_base.less', 'code_base/assets/styles/base.less');
 
   // readme files
   this.template('_README.md', 'README.md');
-  this.template('_README_DIST.md', 'code_base/dist/README.md');
-  this.template('_README_DIST.md', 'dist/README.md');
+  this.template('code_base/dist/_README.md', 'code_base/dist/README.md');
+  this.template('code_base/dist/_README.md', 'dist/README.md');
 };
 
 NglueGenerator.prototype.projectfiles = function projectfiles() {
