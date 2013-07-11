@@ -1,0 +1,1 @@
+# <%= appName %> styles placeholder folder
