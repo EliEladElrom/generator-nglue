@@ -52,6 +52,6 @@ ModuleGenerator.prototype.files = function files() {
   this.template('docs/_README-components.md', this.moduleDirectory + 'assets/components/README.md');
   this.template('docs/_README-directives.md', this.moduleDirectory + 'scripts/directives/README.md');
   this.template('docs/_README-filters.md', this.moduleDirectory + 'scripts/filters/README.md');
-  this.template('docs/_README-images.md', this.moduleDirectory + 'scripts/images/README.md');
+  this.template('docs/_README-images.md', this.moduleDirectory + 'assets/images/README.md');
   this.template('docs/_README-services.md', this.moduleDirectory + 'scripts/services/README.md');
 };

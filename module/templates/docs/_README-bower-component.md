@@ -7,7 +7,7 @@ In order to have grunt use the bower components you must add that to the `nglue.
 <pre>
 {
   "version": "0.0.0",
-  "name": "<%= moduleName %>-module",
+  "name": "<%= _.slugify(name) %>-module",
   "dependencies": {
     "jquery": "bower_components/lib/lib.js",
   }
