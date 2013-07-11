@@ -46,4 +46,12 @@ ModuleGenerator.prototype.files = function files() {
   this.template('_ModuleInterface.js', this.moduleDirectory + this.moduleName + 'Interface.js');
   this.template('_index.html', this.moduleDirectory + 'index.html');
   this.template('_nglue.json', this.moduleDirectory + 'nglue.json');
+
+  // docs
+  this.template('docs/_README-bower-component.md', this.moduleDirectory + 'assets/bower_components/README.md');
+  this.template('docs/_README-components.md', this.moduleDirectory + 'assets/components/README.md');
+  this.template('docs/_README-directives.md', this.moduleDirectory + 'scripts/directives/README.md');
+  this.template('docs/_README-filters.md', this.moduleDirectory + 'scripts/filters/README.md');
+  this.template('docs/_README-images.md', this.moduleDirectory + 'scripts/images/README.md');
+  this.template('docs/_README-services.md', this.moduleDirectory + 'scripts/services/README.md');
 };

@@ -1,0 +1,1 @@
+# <%= moduleName %> directives placeholder folder

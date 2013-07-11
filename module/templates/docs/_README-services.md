@@ -1,0 +1,1 @@
+# <%= moduleName %> services placeholder folder
