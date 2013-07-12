@@ -296,7 +296,7 @@ module.exports = function (grunt) {
           'code_base/apps/<%= optionSrc %>/assets/components/<%= appComponentName %>-latest.min.js': allModuleComponentFiles
         }
       },
-      allModuleScriptsFiles: {
+      moduleScriptsFiles: {
         options: {
           compress: false,
           mangle: false,
@@ -336,6 +336,9 @@ module.exports = function (grunt) {
     },
 
     sass: {
+      options: {
+        compass: true
+      },
       globalSassFiles: {
         files: {
           'code_base/dist/assets/styles/<%= glblpkg.name %>-latest.css': globalSassFiles,
@@ -382,20 +385,28 @@ module.exports = function (grunt) {
      * copy files to dist folder
      */
     copy: {
-      assets: {
+      apps: {
         files: [
           {
             src: [ '**' ],
             dest: 'code_base/dist/apps',
             cwd: 'code_base/apps/',
             expand: true
-          },
+          }
+        ]
+      },
+      modules: {
+        files: [
           {
             src: [ '**' ],
             dest: 'code_base/dist/modules',
             cwd: 'code_base/modules/',
             expand: true
-          },
+          }
+        ]
+      },
+      assets: {
+        files: [
           {
             expand: true,
             flatten: true,
@@ -429,8 +440,31 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'uglify:globalComponentDevFiles', 'less:globalLessFiles', 'cssmin:globalCssFiles']);
-  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
+  // sets up the global task
+  var globalTasks = [];
+  globalTasks.push('clean');
+  globalTasks.push('copy:apps');
+  globalTasks.push('copy:modules');
+  globalTasks.push('copy:assets');
+  if (globalComponentFiles.length > 0) {globalTasks.push('uglify:globalComponentFiles');}
+  if (globalComponentDevFiles.length > 0) {globalTasks.push('uglify:globalComponentDevFiles');}
+  if (globalLessFiles.length > 0) {globalTasks.push('less:globalLessFiles');}
+  if (globalSassFiles.length > 0) {globalTasks.push('sass:globalSassFiles');}
+  if (globalCssFiles.length > 0) {globalTasks.push('cssmin:globalCssFiles');}
+  grunt.registerTask('global', globalTasks);
+
+  // sets up the app task
+  var appTasks = [];
+  if (allModuleComponentFiles.length > 0) {appTasks.push('uglify:allModuleComponentFiles');}
+  if (moduleScriptsFiles.length > 0) {appTasks.push('uglify:moduleScriptsFiles');}
+  if (moduleLessFiles.length > 0) {appTasks.push('less:moduleLessFiles');}
+  if (moduleSassFiles.length > 0) {appTasks.push('sass:moduleSassFiles');}
+  if (moduleCssFiles.length > 0) {appTasks.push('cssmin:moduleCssFiles');}
+  appTasks.push('copy:app');
+  appTasks.push('replace:dist');
+  grunt.registerTask('app', appTasks);
+
+  grunt.registerTask('default', ['global']);
 
   // TODO: EE: refactor and move into grunt module
   //grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'cssmin:globalCssFiles']);
