@@ -10,9 +10,13 @@
 
 </head>
 
-<!-- global and component specific -->
+<!-- all global bower and none-bower components glued -->
 <script src="../../dist/assets/components/<%= projectName %>-global-components-latest.min.js"></script>
+
+<!-- all modules scripts glued together -->
 <script src="assets/components/<%= _.slugify(name) %>-app-modules-latest.min.js"></script>
+
+<!-- dependencies of each module glued together -->
 <script src="assets/components/<%= _.slugify(name) %>-app-latest.min.js"></script>
 
 <!-- libs -->
