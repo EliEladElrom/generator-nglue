@@ -450,6 +450,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('app', [
     'uglify:allModuleComponentFiles',
+    'uglify:allModuleScriptsFiles',
     'less:moduleLessFiles',
     'cssmin:moduleCssFiles',
     'copy:app',
