@@ -1,0 +1,1 @@
+# <%= appName %> directives placeholder folder

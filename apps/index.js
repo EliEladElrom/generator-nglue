@@ -46,6 +46,15 @@ ApplicationGenerator.prototype.files = function files() {
   this.template('assets/views/_App.html', this.appDirectory + 'assets/views/' + this.appName + '.html');
   this.template('_index.html', this.appDirectory + 'index.html');
   this.template('_nglue.json', this.appDirectory + 'nglue.json');
+
+  // docs
+  this.template('docs/_README-bower-component.md', this.appDirectory + 'assets/bower_components/README.md');
+  this.template('docs/_README-components.md', this.appDirectory + 'assets/components/README.md');
+  this.template('docs/_README-styles.md', this.appDirectory + 'assets/styles/README.md');
+  this.template('docs/_README-directives.md', this.appDirectory + 'scripts/directives/README.md');
+  this.template('docs/_README-filters.md', this.appDirectory + 'scripts/filters/README.md');
+  this.template('docs/_README-images.md', this.appDirectory + 'assets/images/README.md');
+  this.template('docs/_README-services.md', this.appDirectory + 'scripts/services/README.md');
 };
 
 

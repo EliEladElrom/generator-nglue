@@ -214,7 +214,7 @@ module.exports = function (grunt) {
   });
 
   globalLessFiles = globalLessFiles.map(function (p) {
-    return 'code_base/assets/styles/' + p;
+    return 'code_base/assets/' + p;
   });
 
   globalSassFiles = globalSassFiles.map(function (p) {
@@ -242,6 +242,8 @@ module.exports = function (grunt) {
   });
 
   grunt.log.write('\n Loading \'code_base/assets/nglue.json\'\n');
+
+  grunt.log.writeln('\Global less files found:' + JSON.stringify(globalLessFiles));
 
   grunt.initConfig({
 

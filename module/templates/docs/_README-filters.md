@@ -1,0 +1,1 @@
+# <%= moduleName %> filters placeholder folder
