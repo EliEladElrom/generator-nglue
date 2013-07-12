@@ -382,20 +382,28 @@ module.exports = function (grunt) {
      * copy files to dist folder
      */
     copy: {
-      assets: {
+      apps: {
         files: [
           {
             src: [ '**' ],
             dest: 'code_base/dist/apps',
             cwd: 'code_base/apps/',
             expand: true
-          },
+          }
+        ]
+      },
+      modules: {
+        files: [
           {
             src: [ '**' ],
             dest: 'code_base/dist/modules',
             cwd: 'code_base/modules/',
             expand: true
-          },
+          }
+        ]
+      },
+      assets: {
+        files: [
           {
             expand: true,
             flatten: true,
@@ -431,6 +439,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('global', [
     'clean',
+    'copy:apps',
+    'copy:modules',
     'copy:assets',
     'uglify:globalComponentFiles',
     'uglify:globalComponentDevFiles',
