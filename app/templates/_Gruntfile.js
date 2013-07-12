@@ -429,8 +429,24 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'uglify:globalComponentDevFiles', 'less:globalLessFiles', 'cssmin:globalCssFiles']);
-  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
+  grunt.registerTask('global', [
+    'clean',
+    'copy:assets',
+    'uglify:globalComponentFiles',
+    'uglify:globalComponentDevFiles',
+    'less:globalLessFiles',
+    'cssmin:globalCssFiles'
+  ]);
+
+  grunt.registerTask('app', [
+    'uglify:allModuleComponentFiles',
+    'less:moduleLessFiles',
+    'cssmin:moduleCssFiles',
+    'copy:app',
+    'replace:dist'
+  ]);
+
+  grunt.registerTask('default', ['global']);
 
   // TODO: EE: refactor and move into grunt module
   //grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'cssmin:globalCssFiles']);
