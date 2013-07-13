@@ -264,9 +264,7 @@ module.exports = function (grunt) {
     uglify: {
       globalComponentFiles: {
         options: {
-          compress: {
-            unsafe: false
-          }
+          compress: false
         },
         files: {
           'code_base/dist/assets/components/<%= glblpkg.name %>-<%= glblpkg.version %>.min.js': globalComponentFiles,
