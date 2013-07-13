@@ -3,6 +3,8 @@
 
 ![nglue logo](https://raw.github.com/EladElrom/poet/ei-pages/effectiveidea/public/images/nglue-logo-small.jpg)
 
+`nglue` is lightweight architectural micro-framework it stands for the internal architecture of the processor. It provides the skeleton, around the exact needs/features of your application. In other words, nglue framework provides the starting point for you application’s architecture.
+
 Although it is a bit opinionated, it is not intended to be a *boilerplate* code.  This is `Yeoman` generator and `gruntjs` tasks to help you build and manage large `Angularjs` projects that includes many re-usable modules (components) and apps.  This project will help you glue these re-usable modules together as one app.
 The problem this generator is aiming to solve is to be able to create stand alone re-usable modules as well as glue these modules together as an `app` so you can share these modules between projects and develop each module as it's own entity.
 
