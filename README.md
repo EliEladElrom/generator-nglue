@@ -23,6 +23,10 @@ and once each module works on it's own than you `glue` them together to form an 
 
 This will create the project scaffolding, install bower components & install grunt.
 
+## Demonstration
+
+[![Demo](https://raw.github.com/EladElrom/poet/ei-pages/effectiveidea/public/images/nglue-asciiio.jpg)](http://ascii.io/a/4165/)
+
 ## Sub-commands
 
 Create a module and add templates;
