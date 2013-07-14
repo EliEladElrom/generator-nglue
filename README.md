@@ -1,7 +1,7 @@
 # Generator-nglue
 [![Build Status](https://secure.travis-ci.org/eladelrom/generator-nglue.png?branch=master)](https://travis-ci.org/eladelrom/generator-nglue)
 
-![nglue logo](https://raw.github.com/EladElrom/poet/ei-pages/effectiveidea/public/images/nglue-logo-small.jpg)
+![nglue logo](https://raw.github.com/eladelrom/poet/ei-pages/effectiveidea/public/images/nglue-logo-small.jpg)
 
 `nglue` is lightweight architectural micro-framework it stands for the internal architecture of the processor. It provides the skeleton, around the exact needs/features of your application. In other words, nglue framework provides the starting point for your application’s architecture.
 
