@@ -1,6 +1,6 @@
 {
   "name": "generator-nglue",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Yeoman generator for Angular gluing re-usable components",
   "keywords": [
     "yeoman-generator, angular, angularjs, angular component, angular re-usable components, angular modules"
