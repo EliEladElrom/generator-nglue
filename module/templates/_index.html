@@ -14,12 +14,12 @@
 <script src="../../dist/assets/components/<%= projectName %>-global-components-latest.min.js"></script>
 <script src="../../dist/assets/components/<%= projectName %>-global-components-dev-dependencies-latest.min.js"></script>
 
-<!-- interface -->
-<script src="<%= moduleName %>Interface.js"></script>
-
 <!-- module's Angular.js controllers, directives, etc. -->
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/<%= moduleName %>.js"></script>
+
+<!-- interface -->
+<script src="<%= moduleName %>Interface.js"></script>
 
 <!-- components partial -->
 <div ng-include="'assets/views/<%= moduleName %>.html'"></div>
