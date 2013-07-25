@@ -28,5 +28,11 @@
 <!-- components partial -->
 <div ng-include="'assets/views/<%= appName %>.html'"></div>
 
+<!-- modules scripts - such as directives and controllers -->
+<!-- uglify -->
+<!-- script src="../../dist/assets/components/<%= _.slugify(name) %>-app-modules-latest.min.js"></script>
+<!-- or beautify -->
+<script src="../../dist/assets/components/<%= _.slugify(name) %>-app-modules-beautify-latest.js"></script>
+
 </body>
 </html>

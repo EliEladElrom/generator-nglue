@@ -12,6 +12,6 @@
     "images": "assets/images"
   },
   "scripts": {
-    "scripts": "scripts/**/*.js"
+    "files": "scripts/**/*.js"
   }
 }
