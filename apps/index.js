@@ -44,7 +44,7 @@ ApplicationGenerator.prototype.files = function files() {
   this.template('scripts/_app.js', this.appDirectory + 'scripts/app.js');
   this.template('scripts/controllers/_App.js', this.appDirectory + 'scripts/controllers/' + this.appName + '.js');
   this.template('assets/views/_App.html', this.appDirectory + 'assets/views/' + this.appName + '.html');
-  this.template('scripts/events/_eventService.js', this.appDirectory + 'scripts/events/eventService.js');
+  this.template('scripts/services/_eventService.js', this.appDirectory + 'scripts/services/eventService.js');
   this.template('_index.html', this.appDirectory + 'index.html');
   this.template('_nglue.json', this.appDirectory + 'nglue.json');
 
