@@ -51,6 +51,7 @@ NglueGenerator.prototype.app = function app() {
   this.mkdir('code_base/assets');
   this.mkdir('code_base/assets/bower_components');
   this.mkdir('code_base/assets/components');
+  this.mkdir('code_base/assets/components/less');
   this.mkdir('code_base/assets/fonts');
   this.mkdir('code_base/assets/images');
   this.mkdir('code_base/assets/styles');
@@ -65,6 +66,7 @@ NglueGenerator.prototype.app = function app() {
   this.template('code_base/assets/_nglue.json', 'code_base/assets/nglue.json');
   this.copy('_Gruntfile.js', 'Gruntfile.js');
   this.copy('_gitignore', '.gitignore');
+  this.copy('code_base/assets/components/less/less-1.3.3.min.js', 'code_base/assets/components/less/less-1.3.3.min.js');
   this.template('code_base/assets/styles/_base.less', 'code_base/assets/styles/base.less');
 
   // readme files
